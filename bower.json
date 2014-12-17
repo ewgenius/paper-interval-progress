@@ -1,0 +1,7 @@
+{
+  "name": "paper-interval-progress#gh-pages",
+  "private": true,
+  "dependencies": {
+    "paper-interval-progress": "ewgenius/paper-interval-progress#master"
+  }
+}
