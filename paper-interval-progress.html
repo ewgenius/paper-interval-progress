@@ -1,0 +1,67 @@
+<!--
+    @license
+    Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+    Code distributed by Google as part of the polymer project is also
+    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!--
+Element providing solution to no problem in particular.
+
+##### Example
+
+    <paper-interval-progress></paper-interval-progress>
+
+@element paper-interval-progress
+@blurb Element providing solution to no problem in particular.
+@status alpha
+@homepage http://polymerlabs.github.io/paper-interval-progress
+-->
+<link rel="import" href="../core-interval/core-interval.html">
+
+<polymer-element name="paper-interval-progress" extends="core-interval">
+
+  <template>
+
+    <link rel="stylesheet" href="paper-interval-progress.css">
+
+    <div id="progressContainer">
+
+      <div id="progress" fit></div>
+
+    </div>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      step: 0,
+
+      observe: {
+        'valueA valueB min max': 'update'
+      },
+
+      update: function () {
+        this.super();
+        this.secondaryProgress = this.clampValue(this.secondaryProgress);
+        this.secondaryRatio = this.calcRatio(this.secondaryProgress) * 100;
+      },
+
+      transformProgress: function (progress, ratioA, interval) {
+        var transform = 'translate(' + (ratioA + (interval / 2) - 50) + '%) scaleX(' + (interval / 100) + ')';
+        progress.style.transform = progress.style.webkitTransform = transform;
+      },
+
+      intervalChanged: function () {
+        this.transformProgress(this.$.progress, this.ratioA, this.interval);
+      }
+    });
+
+  </script>
+
+</polymer-element>
