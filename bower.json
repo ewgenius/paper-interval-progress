@@ -1,25 +1,32 @@
 {
   "name": "paper-interval-progress",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "authors": [
-    "Anonymous <anonymous@example.com>"
+    "Ewgenius <ewgeniux@gmail.com>"
   ],
-  "description": "Element providing solution to no problem in particular.",
+  "description": "The interval progress bar is for situation where determined start and",
   "keywords": [
     "web-component",
     "web-components",
     "polymer",
     "seed"
   ],
-  "main": "paper-interval-progress.html",
+  "main": "end points.",
   "license": "MIT",
-  "homepage": "https://github.com/<USERNAME>/paper-interval-progress/",
+  "homepage": "https://github.com/ewgenius/paper-interval-progress",
   "ignore": [
     "/.*",
-    "/tests/"
+    "/tests/",
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "../",
+    "test",
+    "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^0.5.2"
+    "polymer": "Polymer/polymer#^0.5.2",
+    "core-interval": "~0.0.1"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^2.0.5"
