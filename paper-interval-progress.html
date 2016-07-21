@@ -1,9 +1,13 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-interval-behavior/iron-interval-behavior.html">
+<link rel="import" href="../paper-styles/color.html">
 
 <!--
 `paper-interval-progress`
 A Material Design progress for interval
 
+@element paper-interval-progress
 @demo demo/index.html 
 -->
 
@@ -12,23 +16,53 @@ A Material Design progress for interval
     <style>
       :host {
         display: block;
+        width: 200px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      #progressContainer {
+        position: relative;
+        height: var(--paper-progress-height, 4px);
+        background: var(--paper-progress-container-color, --google-grey-300);
+      }
+
+      #progress {
+        @apply(--layout-fit);
+        -webkit-transform-origin: left center;
+        transform-origin: left center;
+        -webkit-transform: scaleX(0);
+        transform: scaleX(0);
+        will-change: transform;
+        background: var(--paper-progress-active-color, --google-green-500);
+      }
+
+      :host([disabled]) #progress {
+        background: var(--paper-progress-disabled-active-color, --google-grey-500);
       }
     </style>
-    <h2>Hello [[prop1]]</h2>
+    <div id="progressContainer">
+      <div id="progress"></div>
+    </div>
   </template>
+</dom-module>
 
-  <script>
+<script>
+  HTMLImports.whenReady(function() {
     Polymer({
-
       is: 'paper-interval-progress',
 
-      properties: {
-        prop1: {
-          type: String,
-          value: 'paper-interval-progress',
-        },
-      },
+      behaviors: [Polymer.IronIntervalBehavior],
 
+      observers: [
+        '_updateProgress(ratioFrom, ratioTo, min, max)'
+      ],
+
+      _updateProgress(ratioFrom, ratioTo) {
+        var transform = 'translateX(' + ratioFrom + '%) scaleX(' + ((ratioTo - ratioFrom) / 100) + ')';
+        var progress = this.$.progress
+        progress.style.transform = progress.style.webkitTransform = transform;
+      }
     });
-  </script>
-</dom-module>
+  });
+</script>
